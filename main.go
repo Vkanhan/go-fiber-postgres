@@ -15,8 +15,8 @@ import (
 
 type Book struct {
 	Author    string `json:"author"`
-	Title     string `json:title"`
-	Publisher string `json:publisher`
+	Title     string `json:"title"`
+	Publisher string `json:"publisher"`
 }
 type Repository struct {
 	DB *gorm.DB
@@ -106,15 +106,17 @@ func (r *Repository) GetBookByID(context *fiber.Ctx) error {
 		"message": "book id fetched successfully",
 		"data":    bookModel,
 	})
+	return nil
 }
 
-func (r *Repository) SetupRoutes(app *fiber.App) error {
+func (r *Repository) SetupRoutes(app *fiber.App)  {
 	api := app.Group("/api")
 	api.Post("/create_book", r.CreateBook)
 	api.Delete("delete_book/:id", r.DeleteBook)
 	api.Get("/get_books/:id", r.GetBookByID)
 	api.Get("/books", r.GetBooks)
 }
+
 
 func main() {
 
